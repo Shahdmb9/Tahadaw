@@ -1,0 +1,16 @@
+package org.example.tahadaw.Repository;
+
+import org.example.tahadaw.Model.GiftMessage;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface GiftMessageRepository extends JpaRepository<GiftMessage, Long> {
+
+    Optional<GiftMessage> findGiftMessageById(Long id);
+
+    List<GiftMessage> findByUser_IdOrderByCreatedAtDesc(Long userId);
+
+    Optional<GiftMessage> findFirstByGiftPlan_IdOrderByCreatedAtDesc(Long giftPlanId);
+}
