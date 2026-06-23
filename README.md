@@ -195,7 +195,7 @@ postman/             # Full-system Postman collection (flows grouped by develope
 
 Interactive UI mockups for the Tahadaw platform (Arabic RTL dashboard and user flows):
 
-**[Tahadaw UI — Figma (تهادوا)](https://www.figma.com/design/1kn0xnKDmQyf60eT7sz27N/%D8%AA%D9%87%D8%A7%D8%AF%D9%88%D8%A7?node-id=74-788&t=0gAjgk2GyDalTl9u-1)**
+**[Tahadaw UI — Figma (تهادوا)](https://www.figma.com/design/1kn0xnKDmQyf60eT7sz27N/%D8%AA%D9%87%D8%A7%D8%AF%D9%88%D8%A7?node-id=0-1&t=0gAjgk2GyDalTl9u-1)**
 
 ---
 
