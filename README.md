@@ -7,9 +7,10 @@ voting, tracks gift history, and sends reminders — all powered by OpenAI and a
 premium features.
 
 > **نبذة بالعربية**
-> **تهدّاو** هو نظام خلفي (Backend) مبني على Spring Boot يساعد المستخدم على تخطيط الهدية المثالية.
-> ينشئ ملفًا تعريفيًا غنيًا عن المُهدى إليه، ويطرح أسئلة إلزامية وأسئلة ذكية مولّدة بالذكاء الاصطناعي،
-> ثم يقترح أفكار هدايا ويبحث عن منتجات حقيقية، ويولّد رسائل تهنئة وبطاقات هدايا مميّزة مع رمز QR،
+> **تهدّاو** هو نظام  (Backend) مبني على Spring Boot يساعد المستخدم على تخطيط الهدية المثالية.
+> انشئ ملفًا تعريفيًا عن المُهدى إليه، التطبيق سيطرح أسئلة إلزامية وأسئلة ذكية مولّدة بالذكاء الاصطناعي،
+> ثم يقترح أفكار هدايا للمُهدى إليه بناءًا على ملف المهدى إليه و اجاباتك على الاساله المولده من الذكاء الاسطناعي ويبحث عن منتجات حقيقية ،
+> ويولّد رسائل تهنئة وبطاقات هدايا مميّزة مع رمز كيو ار،
 > ويدير التصويت على الهدايا الجماعية، ويتتبّع سجل الهدايا، ويرسل التذكيرات — مدعومًا بالذكاء الاصطناعي
 > من OpenAI ونظام دفع Moyasar للميزات المدفوعة (Premium).
 
@@ -76,13 +77,13 @@ Main feature areas:
 
 ## External Integrations
 
-| Integration | Purpose |
-|-------------|---------|
-| **OpenAI** (`gpt-4o-mini`) | Required/AI follow-up questions, gift idea recommendations, gift messages, surprise plans, group-gift options, gift quality checks |
-| **Moyasar** | Premium one-time payment gateway (sandbox) with 3‑D Secure browser callback + webhook |
-| **SearchAPI.io** | Real product search (Google Shopping) for selected gift ideas |
-| **Twilio** | WhatsApp reminder notifications |
-| **SMTP Email** | Gift card delivery, payment receipts, group-gift invites |
+| Integration            | Purpose |
+|------------------------|---------|
+| **OpenAI** (`gpt-5-5`) | Required/AI follow-up questions, gift idea recommendations, gift messages, surprise plans, group-gift options, gift quality checks |
+| **Moyasar**            | Premium one-time payment gateway (sandbox) with 3‑D Secure browser callback + webhook |
+| **SearchAPI.io**       | Real product search (Google Shopping) for selected gift ideas |
+| **Twilio**             | WhatsApp reminder notifications |
+| **SMTP Email**         | Gift card delivery, payment receipts, group-gift invites |
 
 ---
 
@@ -92,11 +93,11 @@ Main feature areas:
 - **Maven 3.9+** (or use the included `./mvnw` wrapper)
 - **MySQL 8+** with a database named `tahadaw`
 - Optional but recommended for full functionality:
-  - OpenAI API key
-  - Moyasar (test) secret key
-  - SearchAPI.io key
-  - SMTP credentials (Gmail App Password or similar)
-  - Twilio credentials (WhatsApp)
+    - OpenAI API key
+    - Moyasar (test) secret key
+    - SearchAPI.io key
+    - SMTP credentials (Gmail App Password or similar)
+    - Twilio credentials (WhatsApp)
 
 ---
 
@@ -210,127 +211,103 @@ Interactive UI mockups for the Tahadaw platform (Arabic RTL dashboard and user f
 
 ---
 
-## Team Contributions
 
-### Saud Shafie
+## External Integrations
 
-The following 34 endpoints make up Saud's flows (Premium Payment, Gift Messages, Gift Cards, Surprise
-Plan, Gift History) plus the cross-cutting Dashboard and Recipient Insights.
-
-**Premium Payment (Moyasar)**
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/api/v1/payments/premium` | Start a one-time premium payment |
-| `GET` | `/api/v1/payments/my` | List my payments |
-| `GET` | `/api/v1/premium/status` | Get my premium status |
-| `POST` | `/api/v1/payments/webhook/moyasar` | Moyasar payment webhook (public) |
-| `GET` | `/api/v1/payments/moyasar-status/{id}` | Check a Moyasar payment status |
-
-**Gift Messages**
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/api/v1/gift-messages/generate` | AI-generate a standalone gift message |
-| `POST` | `/api/v1/gift-messages/generate-from-plan/{giftPlanId}` | AI message from a gift plan |
-| `POST` | `/api/v1/gift-messages/manual` | Create a manual gift message |
-| `PUT` | `/api/v1/gift-messages/{messageId}` | Update a gift message |
-| `GET` | `/api/v1/gift-messages/my` | List my gift messages |
-| `GET` | `/api/v1/gift-messages/{messageId}` | Get one gift message |
-
-**Gift Card (Premium)**
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/api/v1/gift-cards` | Create a gift card |
-| `GET` | `/api/v1/gift-cards/my` | List my gift cards |
-| `GET` | `/api/v1/gift-cards/{giftCardId}` | Get one gift card |
-| `PUT` | `/api/v1/gift-cards/{giftCardId}` | Update a gift card |
-| `POST` | `/api/v1/gift-cards/{giftCardId}/regenerate` | Regenerate the card image |
-| `GET` | `/api/v1/gift-cards/{giftCardId}/image` | View card as PNG |
-| `POST` | `/api/v1/gift-cards/{giftCardId}/send-email` | Email the gift card |
-| `DELETE` | `/api/v1/gift-cards/{giftCardId}` | Delete a gift card |
-| `GET` | `/api/v1/gift-cards/{giftCardId}/download` | Download card as PDF (or PNG) |
-
-**Surprise Plan (Premium)**
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/api/v1/gift-plans/{giftPlanId}/surprise-plan/generate` | Generate AI surprise plan |
-| `POST` | `/api/v1/gift-plans/{giftPlanId}/surprise-plan/regenerate` | Regenerate surprise plan |
-| `PUT` | `/api/v1/gift-plans/{giftPlanId}/surprise-plan` | Update surprise plan |
-| `DELETE` | `/api/v1/gift-plans/{giftPlanId}/surprise-plan` | Delete surprise plan |
-| `GET` | `/api/v1/gift-plans/{giftPlanId}/surprise-plan` | Get surprise plan |
-
-**Gift History**
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/api/v1/gift-history/from-product/{selectedProductId}` | Log a gift from a selected product |
-| `PUT` | `/api/v1/gift-history/from-product/{selectedProductId}` | Edit a gift history log |
-| `DELETE` | `/api/v1/gift-history/from-product/{selectedProductId}` | Delete a gift history log |
-| `GET` | `/api/v1/gift-history/from-product/{selectedProductId}` | Get gift history for a product |
-| `GET` | `/api/v1/gift-history/my` | List my gift history |
-| `GET` | `/api/v1/gift-history/summary` | Gift history summary |
-| `GET` | `/api/v1/gift-history/spending-stats` | Spending stats with date filters |
-
-**Dashboard & Insights**
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/api/v1/dashboard` | Aggregated home-screen dashboard |
-| `GET` | `/api/v1/recipients/{recipientId}/insights` | Per-recipient gifting insights |
-
-#### Example requests (Saud Shafie endpoints)
-
-**Spending stats (date-filtered)**
-
-```http
-GET /api/v1/gift-history/spending-stats?from=2026-01-01&to=2026-12-31
-```
-
-**Download a gift card as PDF**
-
-```http
-GET /api/v1/gift-cards/1/download?format=pdf
-```
-
-**Aggregated dashboard**
-
-```http
-GET /api/v1/dashboard
-```
+| Integration | Used in Shahad's flows |
+|-------------|-------------------------|
+| **OpenAI** | AI follow-up questions, gift idea recommendations |
+| **SearchAPI.io** | Real product search after idea selection |
 
 ---
 
-## API Base URL
+## Postman Flows
 
-```
-http://localhost:8080/api/v1
-```
+Run these folders in order (after Bayan's recipient setup):
 
-All endpoints return JSON. Successful mutations typically respond with an `ApiResponse` message or the
-created/updated DTO. Authentication is HTTP Basic; the user is taken from the Spring Security principal.
+| # | Folder                                      |
+|---|---------------------------------------------|
+| 5 | `Shahad - 5. Gift Plans`                    |
+| 6 | `Shahad - 6. Required Questions Answers`    |
+| 7 | `Shahad - 7. AI Follow-up Questions & Answers` |
+| 8 | `Shahad - 8. AI Gift Recommendations`       |
+| 9 | `Shahad - 9. Product Search & Selection`    |
 
-Errors are returned with HTTP 4xx/5xx and a message body (`spring.web.error.include-message=always`).
+**Extra:** `Shahad - Required Question Answers`, `AI Questions`, `AI Answers`, `Recommendations`, `Product Selection`, `Gift Plans`
+
+---
+
+## Endpoints
+
+
+### Shahad
+
+**Gift Plan**
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/api/v1/gift-plans/create/{recipientId}` | Create a gift plan for a recipient |
+| `GET` | `/api/v1/gift-plans/get-my-plans` | List my gift plans |
+| `GET` | `/api/v1/gift-plans/get-plan-by-id/{giftPlanId}` | Get a gift plan by id |
+| `PUT` | `/api/v1/gift-plans/update/{giftPlanId}` | Update a gift plan |
+| `DELETE` | `/api/v1/gift-plans/delete/{giftPlanId}` | Delete a gift plan |
+| `GET` | `/api/v1/gift-plans/get-active-plans` | List my active gift plans |
+| `GET` | `/api/v1/gift-plans/get-previous-plans` | List my previous gift plans |
+| `GET` | `/api/v1/gift-plans/get-gift-plan-Summery/{giftPlanId}` | Get a gift plan summary |
+
+**AI Questions**
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/v1/ai-questions/generate/{giftPlanId}` | Generate AI follow-up questions for a gift plan |
+| `GET` | `/api/v1/ai-questions/gift-plans/{giftPlanId}` | List AI questions for a gift plan |
+| `GET` | `/api/v1/ai-questions/regenerate/{giftPlanId}` | Regenerate AI follow-up questions |
+
+**AI Answers**
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/api/v1/ai-answers/gift-plans/{giftPlanId}` | Submit answers to the AI-generated questions |
+| `GET` | `/api/v1/ai-answers/gift-plans/{giftPlanId}` | List AI question answers for a gift plan |
+
+**Required Question Answers**
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/api/v1/required-question-answers/gift-plans/{giftPlanId}/submit` | Submit answers to the required questions |
+| `GET` | `/api/v1/required-question-answers/gift-plans/{giftPlanId}` | List required-question answers for a gift plan |
+
+**Product Search**
+
+| Method | Endpoint | Description                                       |
+|--------|----------|---------------------------------------------------|
+| `GET` | `/api/v1/search/gift-plans/{giftPlanId}/products` | Search real products (SearchAPI.io) for a gift plan |
+
+**Selected Product**
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/api/v1/selected-products/select-product/{productId}` | Select a product for the gift plan |
+| `GET` | `/api/v1/selected-products/get-selected-product/{giftPlanId}` | Get the selected product |
+| `DELETE` | `/api/v1/selected-products/clear-selected-product/{giftPlanId}` | Clear the selected product |
+
+**Gift Idea Recommendations**
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `PUT` | `/api/v1/gift-recommendations/{recommendationId}/select` | Select a gift idea recommendation |
+| `GET` | `/api/v1/gift-recommendations/gift-plans/{giftPlanId}` | Generate AI gift idea recommendations |
+| `PUT` | `/api/v1/gift-recommendations/{recommendationId}/unselect` | Unselect a gift idea recommendation |
+| `GET` | `/api/v1/gift-recommendations/gift-plans/{giftPlanId}/regenerate` | Regenerate gift idea recommendations |
+| `GET` | `/api/v1/gift-recommendations/gift-plans/{giftPlanId}/selected` | Get the selected gift idea |
+
 
 ---
 
 ## Postman API Documentation
 
-**[Tahadaw — Full System Flows (Postman API Docs)](https://documenter.getpostman.com/view/54224474/2sBXwwm7kY#1b2a0212-71da-4b20-95f0-bf480fa27d16)**
+**[Tahadaw — Full System Flows (Postman API Docs)](https://documenter.getpostman.com/view/54224474/2sBXwwmniT)**
 
-**Import the collection locally:**
-
-| Resource | Location |
-|----------|----------|
-| Collection JSON | [`postman/Tahadaw-Full-System-Flows.postman_collection.json`](postman/Tahadaw-Full-System-Flows.postman_collection.json) |
-| Regenerate script | [`postman/build-collection.js`](postman/build-collection.js) |
-
-The collection includes end-to-end flows grouped by developer (Bayan, Shahad, Saud) plus an **Extra**
-folder for out-of-flow endpoints (dashboard, spending stats, recipient insights, gift card PDF download).
-
----
 
 ## License
 
