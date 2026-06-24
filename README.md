@@ -267,9 +267,9 @@ Run these folders in order (after Bayan's recipient setup):
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| `GET` | `/api/v1/ai-questions/generate/{giftPlanId}` | Generate AI follow-up questions for a gift plan |
+| `POST` | `/api/v1/ai-questions/generate/{giftPlanId}` | Generate AI follow-up questions for a gift plan |
 | `GET` | `/api/v1/ai-questions/gift-plans/{giftPlanId}` | List AI questions for a gift plan |
-| `GET` | `/api/v1/ai-questions/regenerate/{giftPlanId}` | Regenerate AI follow-up questions |
+| `POST` | `/api/v1/ai-questions/regenerate/{giftPlanId}` | Regenerate AI follow-up questions |
 
 **AI Answers**
 
