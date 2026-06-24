@@ -103,6 +103,14 @@ Main feature areas:
 
 ## Getting Started
 
+---
+
+Live API (AWS)
+http://tahadaw-alb-278802991.eu-central-1.elb.amazonaws.com/api/v1
+
+
+---
+
 ### 1. Clone the repository
 
 ```bash
