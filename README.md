@@ -304,9 +304,10 @@ Run these folders in order (after Bayan's recipient setup):
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | `PUT` | `/api/v1/gift-recommendations/{recommendationId}/select` | Select a gift idea recommendation |
+| `POST` | `/api/v1/gift-recommendations/gift-plans/{giftPlanId}/generate` | Generate AI gift idea recommendations |
 | `GET` | `/api/v1/gift-recommendations/gift-plans/{giftPlanId}` | Generate AI gift idea recommendations |
 | `PUT` | `/api/v1/gift-recommendations/{recommendationId}/unselect` | Unselect a gift idea recommendation |
-| `GET` | `/api/v1/gift-recommendations/gift-plans/{giftPlanId}/regenerate` | Regenerate gift idea recommendations |
+| `POST` | `/api/v1/gift-recommendations/gift-plans/{giftPlanId}/regenerate` | Regenerate gift idea recommendations |
 | `GET` | `/api/v1/gift-recommendations/gift-plans/{giftPlanId}/selected` | Get the selected gift idea |
 
 
