@@ -315,7 +315,7 @@ Run these folders in order (after Bayan's recipient setup):
 
 ## Postman API Documentation
 
-**[Tahadaw — Full System Flows (Postman API Docs)](https://documenter.getpostman.com/view/54224474/2sBXwwmniT)**
+**[Tahadaw — Full System Flows (Postman API Docs)](https://documenter.getpostman.com/view/54223024/2sBXwwooJF#tahadaw-complete-api-collection)**
 
 
 ## License
